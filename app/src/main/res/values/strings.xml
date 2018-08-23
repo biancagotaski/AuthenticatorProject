@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Authenticator Project</string>
+    <string name="login_btn">Login</string>
+    <string name="cadastro">Cadastro</string>
+    <string name="entrar_via_facebook">Entrar via Facebook</string>
+    <string name="clean">Limpar</string>
+    <string name="register">Cadastrar</string>
+    <string name="complete_name">Nome Completo</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="cpf">CPF</string>
+    <string name="login_textField">Login (e-mail)</string>
+</resources>
