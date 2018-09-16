@@ -48,7 +48,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="1dp"
             android:text="@string/entrar_via_facebook"/>
-
     </LinearLayout>
 
 </LinearLayout>

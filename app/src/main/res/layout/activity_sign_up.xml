@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/dimen_padding"
-    tools:context=".RegisterActivity">
+    tools:context=".SignUpActivity">
 
 
     <android.support.design.widget.TextInputLayout
@@ -24,11 +24,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
-            android:id="@+id/login_edit_text"
+            android:id="@+id/email_to_login_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/login_textField"
-            android:inputType="text" />
+            android:inputType="textEmailAddress" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
-            android:inputType="text"
+            android:inputType="textPassword"
             tools:ignore="TextFields" />
     </android.support.design.widget.TextInputLayout>
 
@@ -47,11 +47,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
-            android:id="@+id/confirm_password_etxt"
+            android:id="@+id/confirm_password_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/confirm_password"
-            android:inputType="text" />
+            android:inputType="textPassword" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/cpf"
-            android:inputType="text" />
+            android:inputType="text|number" />
     </android.support.design.widget.TextInputLayout>
 
     <RelativeLayout
@@ -75,8 +75,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:text="@string/clean"/>
-            <!--android:onClick="clearFormRegister" -->
+            android:text="@string/clean"
+            android:onClick="clearFormSignUp"/>
 
         <Button
             android:id="@+id/send_question_button"
@@ -86,7 +86,7 @@
             android:layout_marginLeft="150dp"
             android:layout_toRightOf="@+id/clean_form_btn"
             android:text="@string/register"
-            android:onClick="newRegister" />
+            android:onClick="newUser" />
     </RelativeLayout>
 
 </LinearLayout>
