@@ -71,7 +71,7 @@ public class SignUpActivity extends AppCompatActivity {
         passwordField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
-                if(!hasFocus && ((!password.equals(passwordConfirm)) || (passwordField.getText().toString().trim().equals("")))){
+                if(!hasFocus && passwordField.getText().toString().trim().equals("")){
                     passwordField.setError("Campo obrigatório. As senhas devem ser iguais.");
                     isPasswordValid = false;
                 } else {
@@ -105,8 +105,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    public boolean isEmailValid(String email)
-    {
+    public boolean isEmailValid(String email) {
         String regExpn =
                 "^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
                         +"((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
