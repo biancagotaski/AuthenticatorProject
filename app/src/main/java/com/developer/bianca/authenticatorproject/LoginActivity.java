@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,7 +41,9 @@ public class LoginActivity extends AppCompatActivity {
 
     public void signIn(View view) {
         mAuth = DataAccess.getFireBaseAuthentication();
-        mAuth.signInWithEmailAndPassword(user.getEmail(), user.getPassword())
+//        String testeEmail = user.getEmail();
+//        String testePassword = user.getPassword();
+        mAuth.signInWithEmailAndPassword(emailLoginField.getText().toString().trim(), passwordField.getText().toString().trim())
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -53,28 +56,9 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(),
                                     task.getException().getMessage(),
                                     Toast.LENGTH_LONG).show();
+                            Log.d(task.getException().getMessage(), "Erro auth firebase: ");
                         }
                     }
                 });
     }
-//
-//    public boolean isEmailValid(String email) {
-//        String regExpn =
-//                "^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
-//                        +"((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
-//                        +"[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
-//                        +"([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
-//                        +"[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
-//                        +"([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$";
-//
-//        CharSequence inputStr = email;
-//
-//        Pattern pattern = Pattern.compile(regExpn,Pattern.CASE_INSENSITIVE);
-//        Matcher matcher = pattern.matcher(inputStr);
-//
-//        if(matcher.matches())
-//            return true;
-//        else
-//            return false;
-//    }
 }

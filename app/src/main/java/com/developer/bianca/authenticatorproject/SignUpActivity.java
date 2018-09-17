@@ -1,14 +1,21 @@
 package com.developer.bianca.authenticatorproject;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.developer.bianca.authenticatorproject.Utils.Constants;
 import com.developer.bianca.authenticatorproject.domain.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,6 +29,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     FirebaseDatabase database;
     DatabaseReference signupRef;
+    FirebaseAuth mAuth;
 
     EditText nameField, emailField, passwordField, passwordConfirmField, cpfField;
     boolean isNameValid, isEmailValid, isPasswordValid, isPasswordConfirmedValid, isCpfValid;
@@ -33,6 +41,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         signupRef = database.getReference(Constants.REGISTERS_ENDPOINT);
+        mAuth = FirebaseAuth.getInstance();
 
         nameField = findViewById(R.id.name_edit_text);
         emailField = findViewById(R.id.email_to_login_et);
@@ -64,10 +73,6 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        //FIXME: por algum motivo está salvando o mesmo input que o e-mail. E está dizendo que as senhas são iguais.
-        //E por isso, está salvando no banco normalmente, por estar tudo com valided = true;
-        final String password = emailField.getText().toString();
-        final String passwordConfirm = passwordConfirmField.getText().toString();
         passwordField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
@@ -83,7 +88,7 @@ public class SignUpActivity extends AppCompatActivity {
         passwordConfirmField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
-                if(!hasFocus && ((!password.equals(passwordConfirm)) || (passwordField.getText().toString().trim().equals("")))){
+                if(!hasFocus && passwordConfirmField.getText().toString().trim().equals("")){
                     passwordConfirmField.setError("Campo obrigatório. As senhas devem ser iguais.");
                     isPasswordConfirmedValid = false;
                 } else {
@@ -129,14 +134,28 @@ public class SignUpActivity extends AppCompatActivity {
 
         String name = nameField.getText().toString();
         String email = emailField.getText().toString();
-        String password = emailField.getText().toString();
+        String password = passwordField.getText().toString();
         String passwordConfirm = passwordConfirmField.getText().toString();
         String cpf = cpfField.getText().toString();
 
         final User user = new User(name, email, password, passwordConfirm, cpf);
 
+        if(!passwordConfirm.equals(password)){
+            passwordConfirmField.setError("As senhas precisam ser iguais.");
+            return;
+        }
+
         if (isNameValid && isEmailValid && isPasswordValid && isPasswordConfirmedValid && isCpfValid){
             signupRef.push().setValue(user);
+            mAuth = DataAccess.getFireBaseAuthentication();
+            mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                     if(task.isSuccessful()){
+                         Log.d("OAuthSuccess", "Usuário criado no auth do firebase com sucesso!");
+                     }
+                }
+            });
         }
 
         signupRef.addListenerForSingleValueEvent(new ValueEventListener() {
