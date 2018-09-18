@@ -26,7 +26,6 @@ public class LoginActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     EditText emailLoginField, passwordField;
-    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +40,14 @@ public class LoginActivity extends AppCompatActivity {
 
     public void signIn(View view) {
         mAuth = DataAccess.getFireBaseAuthentication();
-//        String testeEmail = user.getEmail();
-//        String testePassword = user.getPassword();
         mAuth.signInWithEmailAndPassword(emailLoginField.getText().toString().trim(), passwordField.getText().toString().trim())
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            new Intent(
+                            startActivity(new Intent(
                                     getApplicationContext(),
-                                    TasksActivity.class);
+                                    TasksActivity.class));
                             Toast.makeText(getApplicationContext(), "Login efetuado", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(getApplicationContext(),

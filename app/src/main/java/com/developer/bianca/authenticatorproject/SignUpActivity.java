@@ -173,7 +173,6 @@ public class SignUpActivity extends AppCompatActivity {
 
             }
         });
-        //FIXME: dessa maneira está iniciando a activity. Se for o caso de já está em memória, não sei como chamar.
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 
