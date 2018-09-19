@@ -54,13 +54,14 @@
             android:text="Login"
             android:onClick="signIn"/>
 
-        <TextView android:id="@+id/link_signup"
-            android:layout_width="fill_parent"
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="Login with Facebook"
-            android:gravity="center"
-            android:textSize="16dip"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp" />
 
     </LinearLayout>
 </ScrollView>

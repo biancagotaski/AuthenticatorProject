@@ -42,12 +42,14 @@
             android:text="@string/cadastro"
             android:onClick="register"/>
 
-        <Button
-            android:id="@+id/access_with_facebook_btn"
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_button_fb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:text="@string/entrar_via_facebook"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp" />
     </LinearLayout>
 
 </LinearLayout>

@@ -10,4 +10,6 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="cpf">CPF</string>
     <string name="login_textField">E-mail</string>
+    <string name="facebook_app_id">422761494919198</string>
+    <string name="fb_login_protocol_scheme">fb422761494919198</string>
 </resources>
