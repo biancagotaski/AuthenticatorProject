@@ -1,5 +1,7 @@
 package com.developer.bianca.authenticatorproject;
 
+import android.app.ActivityManager;
+import android.app.Application;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +15,10 @@ import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.common.api.internal.ActivityLifecycleObserver;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,24 +33,24 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setReadPermissions("email");
 
         LoginManager.getInstance().registerCallback(callbackManager,
-                new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        // App code
-                        Toast.makeText(getApplicationContext(), "Login realizado com sucesso no Facebook!", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(getApplicationContext(), TasksActivity.class));
-                    }
+            new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+                    // App code
+                    Toast.makeText(getApplicationContext(), "Login realizado com sucesso no Facebook!", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(getApplicationContext(), QuestionsActivity.class));
+                }
 
-                    @Override
-                    public void onCancel() {
-                        // App code
-                    }
+                @Override
+                public void onCancel() {
+                    // App code
+                }
 
-                    @Override
-                    public void onError(FacebookException exception) {
-                        // App code
-                    }
-                });
+                @Override
+                public void onError(FacebookException exception) {
+                    // App code
+                }
+            });
     }
 
     public void register(View view) {
@@ -57,10 +63,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LoginManager.getInstance().logOut();
     }
 }

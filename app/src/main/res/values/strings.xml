@@ -12,4 +12,7 @@
     <string name="login_textField">E-mail</string>
     <string name="facebook_app_id">422761494919198</string>
     <string name="fb_login_protocol_scheme">fb422761494919198</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
